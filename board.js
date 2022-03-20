@@ -58,9 +58,9 @@ class Board {
     // TO DO: check overlap on existing ships, do not modify grid and return false if so
   }
 
-  drawBoard(player) {
+  drawBoard(ownBoard, player = 1) {
     process.stdout.write('=================================\n');
-    process.stdout.write(`            Player ${player+1}\n`);
+    process.stdout.write(`            Player ${player}\n`);
     process.stdout.write(`    `);
     for (let row in this.grid) {
       process.stdout.write(`${row}  `);
@@ -77,8 +77,8 @@ class Board {
             process.stdout.write(`🚫 `);
             break;
           case 10: 
-            if (!player) process.stdout.write(`🚢 `); // player = 0 is player1, show own ships
-            else process.stdout.write(`🔳 `); // player = 1 is player2, hide ships
+            if (ownBoard) process.stdout.write(`🚢 `); // drawing own board, show own ships to player
+            else process.stdout.write(`🔳 `); // drawing enemy board, hide ships to player
             break;
           case 11: 
             process.stdout.write(`💣 `);
@@ -120,8 +120,8 @@ board.drawBoard(0);
 board.drawBoard(1);
 console.log(board.myShot("H0"));
 console.log(board.myShot("H1"));
-console.log(board.myShot("I0"));
+// console.log(board.myShot("I0"));
 console.log("Game over?",board.gameOver());
-board.drawBoard(0);
 board.drawBoard(1);
+board.drawBoard(0, 2);
 console.log(board.history);
